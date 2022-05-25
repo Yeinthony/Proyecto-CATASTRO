@@ -1,0 +1,18 @@
+{{> NavbarUser item = this}}
+
+<div class="container-editarPerfil">
+    <div class="my-5 text-center">
+        {{#if imagen}} 
+        <img class="rounded-circle" src="/img/perfiles/{{imagen}}" alt="">
+        {{else}}
+        <img class="rounded-circle" src="/img/perfiles/perfil.png" alt="">
+        {{/if}}
+    </div>
+
+    <form action="/perfil?_csrf={{csrfToken}}" method="post" enctype="multipart/form-data">
+        {{!-- <input type="hidden" name="_csrf" value="{{csrfToken}}"> --}}  
+        <input class="btnP" type="file" name="myFile" id="formFileSm">
+        <button class="btnP"><i class="fa-solid fa-arrow-up-from-bracket"></i> Cambiar imagen</button>
+    </form> 
+</div>
+

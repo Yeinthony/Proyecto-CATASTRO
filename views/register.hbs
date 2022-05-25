@@ -1,0 +1,29 @@
+ 
+ {{> Navbar}}
+
+<div class="register container-login-register">
+    <div class="form-register form-login-register">
+        <form action="/auth/register" method="post">
+            <h3 class="title-login-register">CREAR CUENTA</h3>
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+            <input type="text" name="userName" class="inputs-login-register" placeholder="Nombre completo">
+            <div class="cedula">
+                <select name="tipoci" class="tipo-ci">
+                    <option value="V- ">V- </option>
+                    <option value="E- ">E- </option>
+                    <option value="J- ">J- </option>
+                </select>
+                <input type="text" name="cedula" class="input-ci inputs-login-register" placeholder="CI">
+            </div>
+            <input type="text" name="email" class="inputs-login-register" placeholder="Email">
+            <input type="password" name="password" class="inputs-login-register" placeholder="Contraseña">
+            <input type="password" name="repassword" class="inputs-login-register" placeholder="Confirmar contraseña">
+            <div class="container-alertas">
+                {{#each mensajes }} 
+                    <div class="alertas">{{this.msg}}</div> 
+                {{/each}}
+            </div>
+            <button class="btn-login-register" type="submit">Crear cuenta</button> 
+        </form>
+    </div>
+</div>

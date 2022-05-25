@@ -1,0 +1,33 @@
+{
+  "name": "hbs-1-shorturl",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^4.6.0",
+    "csurf": "^1.11.0",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-handlebars": "^6.0.4",
+    "express-session": "^1.17.2",
+    "express-validator": "^6.14.0",
+    "formidable": "^2.0.1",
+    "jimp": "^0.16.1",
+    "mongoose": "^6.3.0",
+    "nanoid": "^3.3.3",
+    "nodemailer": "^6.7.4",
+    "passport": "^0.5.2"
+  },
+  "description": ""
+}

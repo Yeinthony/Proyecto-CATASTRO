@@ -1,0 +1,19 @@
+{{> Navbar}}
+
+<div class="login container-login-register">
+    <div class="form-login form-login-register">
+        <form action="/auth/login" method="post">
+            <h3 class="title-login-register">LOGIN</h3>
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+            <input type="text" name="email" class="inputs-login-register" placeholder="Email">
+            <input type="password" name="password" class="inputs-login-register" placeholder="Contraseña">
+            <div class="container-alertas">
+                {{#each mensajes }} 
+                    <div class="alertas">{{this.msg}}</div> 
+                {{/each}}
+            </div>
+            <button class="btn-login-register" type="submit">Log in</button> 
+            <a class="link" href="/auth/register">¿No tinenes cuenta? Crea una</a>
+        </form>
+    </div>  
+</div>
