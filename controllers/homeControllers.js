@@ -2,25 +2,28 @@ const User = require("../models/User");
 const Url = require("../models/Url");
 const {nanoid} = require("nanoid");
 
-const leerUserHome = async(req, res) => {
+const leerUser = async(req, res) => {
     try {
         const user = await User.findById(req.user.id);
-        
-        res.render("home", {userName: user.userName, imagen: user.imagen, cedula: user.cedula});
-    } catch (error) {
-        req.flash("mensajes", [{msg: "Error al leer el archivo"}]);
-        res.redirect("/ ");
-    }
-}
+        const { ruta } = req.params;
 
-const leerUserPerfil = async(req, res) => {
-    try {
-        const user = await User.findById(req.user.id);
+        switch (ruta) {
+            case "perfil":
+                res.render("perfil", {userName: user.userName, imagen: user.imagen, cedula: user.cedula});
+                break;
+            case "citas":
+                 res.render("citas", {userName: user.userName, imagen: user.imagen, cedula: usercedula});
+                break;
+            default:
+                res.render("home", {userName: user.userName, imagen: user.imagen, cedula: user.cedula});
+                break;
+        }
+
+        console.log(ruta);
         
-        res.render("perfil", {userName: user.userName, imagen: user.imagen, cedula: user.cedula});
     } catch (error) {
-        req.flash("mensajes", [{msg: "Error al leer el archivo"}]);
-        res.redirect("/perfil ");
+        req.flash("mensajes", [{msg: "Error al leer el usuario"}]);
+        res.redirect("/");
     }
 }
 
@@ -146,6 +149,5 @@ module.exports = {
     editarUrlForm,
     editarUrl,
     redireccionamiento,
-    leerUserHome,
-    leerUserPerfil,
+    leerUser,
 };
