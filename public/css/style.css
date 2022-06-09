@@ -541,6 +541,74 @@ section{
     padding-right: 1rem;
 }
 
+/* AGENDAR CITA */
+
+.conainer-agendarCita{
+    width: 50vw;
+    margin-top: 20rem;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--gris);
+    border-radius: 1rem;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--blanco);
+}
+
+.container-fechaHora{
+    display: flex; 
+    padding: 2rem;
+    text-align: left;
+}
+
+.conainer-agendarCita label{
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: .5rem;
+}
+
+.fecha{
+    padding: .5rem;
+    font-size: 1.5rem;
+    width: 15vw;
+    border-radius: .5rem;
+    background-color: var(--blanco);
+    color: var(--gris);
+}
+
+.hora{
+    padding: .5rem;
+    width: 15vw;
+    font-size: 1.5rem;
+    border-radius: .5rem;
+    background-color: var(--blanco);
+    color: var(--gris);
+}
+
+.container-fecha{
+    margin-right: 3rem;
+}
+
+.btn-cita{
+    width: 10vw;
+    font-size: 1.5rem;
+    padding: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border-radius: .5rem;
+    background: none;
+    border: 1px solid var(--azulClaro);
+    color: var(--blanco);
+    transition: all .2s ease;
+}
+
+.btn-cita:hover{
+    box-shadow: 0 0 .1rem var(--azulClaro);
+    transition: all .2s ease;
+}
+
 @media(max-width:1200px){
     html{
         font-size: 55%;
@@ -672,6 +740,10 @@ section{
         margin-top: 22rem;
     }
 
+    .tipo-user{
+        width: 30%;
+    }
+
 }
 
 
@@ -684,6 +756,10 @@ section{
 
     .container-login{
         margin-top: 27rem;
+    }
+
+    .tipo-user{
+        width: 40%;
     }
 
 }

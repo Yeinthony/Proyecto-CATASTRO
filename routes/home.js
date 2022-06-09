@@ -1,5 +1,5 @@
 const express = require('express');
-const { leerUser, leerUrls, agregarUrls, eliminarUrl, editarUrlForm, editarUrl, redireccionamiento } = require('../controllers/homeControllers');
+const { leerUser, leerUrls, agregarUrls, eliminarUrl, editarUrlForm, editarUrl, agendarCita, redireccionamiento } = require('../controllers/homeControllers');
 const { formPerfil, editarFotoPerfil } = require('../controllers/perfilController');
 const urlValidar = require('../middlewares/urlValida');
 const verificarUser = require('../middlewares/verificarUser');
@@ -14,6 +14,8 @@ router.post("/editar/:id", verificarUser, urlValidar, editarUrl);
 
 router.get("/perfil", verificarUser, formPerfil);
 router.post("/perfil", verificarUser, editarFotoPerfil);
+
+router.post("/citas", verificarUser, agendarCita);
 
 router.get("/:shortURL", redireccionamiento); 
 

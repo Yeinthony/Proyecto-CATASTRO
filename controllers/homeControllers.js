@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const Url = require("../models/Url");
+const Citas = require("../models/Citas");
 const {nanoid} = require("nanoid");
 
 const leerUser = async(req, res) => {
@@ -7,19 +8,11 @@ const leerUser = async(req, res) => {
         const user = await User.findById(req.user.id);
         const { ruta } = req.params;
 
-        switch (ruta) {
-            case "perfil":
-                res.render("perfil", {userName: user.userName, imagen: user.imagen, cedula: user.cedula});
-                break;
-            case "citas":
-                 res.render("citas", {userName: user.userName, imagen: user.imagen, cedula: usercedula});
-                break;
-            default:
-                res.render("home", {userName: user.userName, imagen: user.imagen, cedula: user.cedula});
-                break;
+        if (ruta === undefined) {
+            return res.render("home", {userName: user.userName, imagen: user.imagen, cedula: user.cedula});
         }
 
-        console.log(ruta);
+        res.render(ruta, {userName: user.userName, imagen: user.imagen, cedula: user.cedula}); 
         
     } catch (error) {
         req.flash("mensajes", [{msg: "Error al leer el usuario"}]);
@@ -33,7 +26,7 @@ const leerUrls = async(req, res) => {
     
     try {
 
-        const urls = await Url.find({user: req.user.id}).lean();
+        const urls = await Url.find({user: req.user.id}).lean(); 
         res.render("home", {urls});
         
     } catch (error) {
@@ -142,6 +135,22 @@ const redireccionamiento = async(req, res) => {
     }
 };
 
+/* --------------------CITAS---------------------- */
+
+const agendarCita = async(req, res) => {
+
+    try {
+        const citas = new Citas({fecha: req.body.fecha, hora: req.body.hora, user: req.user.id});
+        await citas.save();
+        req.flash("mensajes", [{msg: "Cita agendada"}]);
+        return res.redirect("/citas");
+    } catch (error) {
+        req.flash("mensajes", [{msg: error.message}]);
+        return res.redirect("/citas");
+    }
+
+}; 
+
 module.exports = {
     leerUrls,
     agregarUrls,
@@ -150,4 +159,5 @@ module.exports = {
     editarUrl,
     redireccionamiento,
     leerUser,
+    agendarCita,
 };
