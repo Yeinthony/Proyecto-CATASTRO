@@ -139,7 +139,7 @@ const redireccionamiento = async(req, res) => {
 
 const agendarCita = async(req, res) => {
 
-    const fechaFront = req.body.fecha;
+    const fechaFront = new Date(req.body.fecha);
     const horaFront = req.body.hora;
 
     const numeroDia = new Date(fechaFront).getDay();    
@@ -150,14 +150,9 @@ const agendarCita = async(req, res) => {
             throw new Error("Fines de semana no laborables");
         }
 
-        let diaDisponible = await Citas.find({fecha: fechaFront});
-        let i = 0;
-
-        for (x of diaDisponible) {
-            i++;
-        }
-
-        if(i === 13) throw new Error("Citas llenas para este dia");
+        let diaDisponible = await Citas.count({fecha: fechaFront});
+        if (diaDisponible >= 13) throw new Error("Citas llenas para este dia");
+        console.log(diaDisponible);
 
         let horaDisponible = await Citas.findOne({fecha: fechaFront, hora: horaFront});
         if(horaDisponible) throw new Error("hora no disponible");

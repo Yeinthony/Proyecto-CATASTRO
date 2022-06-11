@@ -3,7 +3,7 @@ const {Schema} = mongoose;
 
 const citasSchema = new Schema({
     fecha: {
-        type: String,
+        type: Date,
         require: true
     },
     hora: {
