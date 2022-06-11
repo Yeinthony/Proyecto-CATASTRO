@@ -139,34 +139,28 @@ const redireccionamiento = async(req, res) => {
 
 const agendarCita = async(req, res) => {
 
+    const fechaFront = req.body.fecha;
+    const horaFront = req.body.hora;
+
+    const numeroDia = new Date(fechaFront).getDay();    
+    
     try {
 
-        let diaDisponible = await Citas.find({$and: [
-            {fecha: req.body.fecha}, 
-            {$and: [
-                {hora: "08:30"},
-                {hora: "09:00"},
-                {hora: "09:30"},
-                {hora: "10:00"},
-                {hora: "10:30"},
-                {hora: "11:00"},
-                {hora: "11:30"},
-                {hora: "13:00"},
-                {hora: "13:30"},
-                {hora: "14:00"},
-                {hora: "14:30"},
-                {hora: "15:00"},
-                {hora: "15:30"},
-            ]}
-        ]});
+        if(numeroDia === 5 || numeroDia === 6){
+            throw new Error("Fines de semana no laborables");
+        }
 
-        console.log(diaDisponible);
+        let diaDisponible = await Citas.find({fecha: fechaFront});
+        let i = 0;
 
-        if(diaDisponible) throw new Error("Citas llenas para este dia");
+        for (x of diaDisponible) {
+            i++;
+        }
 
-        let horaDisponible = await Citas.findOne({hora: req.body.hora});
+        if(i === 13) throw new Error("Citas llenas para este dia");
 
-        if(horaDisponible) throw new Error("hora no disponible")
+        let horaDisponible = await Citas.findOne({fecha: fechaFront, hora: horaFront});
+        if(horaDisponible) throw new Error("hora no disponible");
 
         const citas = new Citas({fecha: req.body.fecha, hora: req.body.hora, user: req.user.id});
         await citas.save();
