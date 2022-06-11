@@ -140,10 +140,39 @@ const redireccionamiento = async(req, res) => {
 const agendarCita = async(req, res) => {
 
     try {
+
+        let diaDisponible = await Citas.find({$and: [
+            {fecha: req.body.fecha}, 
+            {$and: [
+                {hora: "08:30"},
+                {hora: "09:00"},
+                {hora: "09:30"},
+                {hora: "10:00"},
+                {hora: "10:30"},
+                {hora: "11:00"},
+                {hora: "11:30"},
+                {hora: "13:00"},
+                {hora: "13:30"},
+                {hora: "14:00"},
+                {hora: "14:30"},
+                {hora: "15:00"},
+                {hora: "15:30"},
+            ]}
+        ]});
+
+        console.log(diaDisponible);
+
+        if(diaDisponible) throw new Error("Citas llenas para este dia");
+
+        let horaDisponible = await Citas.findOne({hora: req.body.hora});
+
+        if(horaDisponible) throw new Error("hora no disponible")
+
         const citas = new Citas({fecha: req.body.fecha, hora: req.body.hora, user: req.user.id});
         await citas.save();
         req.flash("mensajes", [{msg: "Cita agendada"}]);
         return res.redirect("/citas");
+
     } catch (error) {
         req.flash("mensajes", [{msg: error.message}]);
         return res.redirect("/citas");

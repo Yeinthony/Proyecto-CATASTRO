@@ -23,7 +23,6 @@ const registerUser = async(req, res) => {
     const cedulaCompleta = req.body.tipoci + req.body.cedula;  
 
     const { userName, email, password } = req.body;
-    console.log(cedulaCompleta); 
 
     try {
 
