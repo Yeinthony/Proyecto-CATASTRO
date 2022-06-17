@@ -1,0 +1,32 @@
+<header class="menu2">
+    <div class="container-perfil">
+        <div class="container-img-user">
+            {{#if imagen}} 
+                <img class="img-user" src="/img/perfiles/{{imagen}}" alt="Cambiar imagen">
+            {{else}}
+                <img class="img-user" src="/img/perfiles/perfil.png" alt="">
+            {{/if}}  
+            <div class="capa">
+                <a href="/perfil">Editar</a>
+            </div>
+        </div>
+        <div>
+            <h3 class="user-title"> {{ userName }}</h3>
+            <h3 class="user-title"> {{ cedula }}</h3>
+        </div> 
+    </div>
+
+    <input class="trans-bar" type="checkbox" id="menu-bar">
+    <label for="menu-bar" class="fa fa-bars trans-bar"></label>
+
+    <div class="container-options">
+        <nav class="nav-bar">
+            <a class="link-options" href="/homeMaster"><i class="fa-solid fa-house"></i> Inicio</a>
+            <a class="link-options" href="/homeMaster/registerAdmin"><i class="fa-solid fa-calendar"></i> Crear cuenta</a>
+        </nav>
+            
+        <div class="salir">
+            <a class="" href="/auth/logout">Salir <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+        </div>
+    </div> 
+</header>   

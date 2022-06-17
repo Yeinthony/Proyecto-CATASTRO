@@ -1,5 +1,6 @@
 const express = require('express');
-const { leerUser, leerUrls, agregarUrls, eliminarUrl, editarUrlForm, editarUrl, agendarCita, redireccionamiento } = require('../controllers/homeControllers');
+const { body } = require("express-validator");
+const { registerAdminForm, leerUser, leerUrls, agregarUrls, eliminarUrl, editarUrlForm, editarUrl, agendarCita, redireccionamiento, registerUserAdmin, } = require('../controllers/homeControllers');
 const { formPerfil, editarFotoPerfil } = require('../controllers/perfilController');
 const urlValidar = require('../middlewares/urlValida');
 const verificarUser = require('../middlewares/verificarUser');
@@ -17,7 +18,30 @@ router.post("/perfil", verificarUser, editarFotoPerfil);
 
 router.post("/citas", verificarUser, agendarCita);
 
+router.get("/homeMaster/registerAdmin", registerAdminForm);
+router.post("/homeMaster/registerAdmin", [
+    body("userName", "Ingrese un nombre valido")
+        .trim()
+        .notEmpty()
+        .escape(),
+    body("email", "Ingrese un email válido")
+        .trim()
+        .isEmail()
+        .normalizeEmail(),
+    body("password", "Contraseña de minimo 6 caracteres")
+        .trim()
+        .isLength({min: 6})
+        .escape().custom((value, {req}) => {
+            if(value !== req.body.repassword){
+                throw new Error("No coinciden las contraseñas")
+            }else{
+                return value;
+            }
+        }),
+], registerUserAdmin);
+
 router.get("/:shortURL", redireccionamiento); 
+
 
 
 

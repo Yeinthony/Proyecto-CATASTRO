@@ -26,7 +26,7 @@
 
 html{
     font-size: 62.4%;
-    /* overflow: hidden; */
+    overflow-x: hidden;
     scroll-behavior: smooth;
 }
 
@@ -280,12 +280,39 @@ section{
     border-bottom: 1px solid var(--grisClaro);
 }
 
+.rol{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.8rem;
+     color: var(--grisClaro);
+}
+
+.rol select{
+    width: 60%;
+    background: none;
+    border-bottom: 1.5px solid var(--grisClaro);
+    padding: .5rem;
+     color: var(--grisClaro);
+}
+
+.rol select option{
+    background: var(--gris);
+}
+
+.rol label{
+    margin-top: 1rem;
+}
+
 .inputs-login-register{
     display: block;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     background: none;
     border-bottom: 1.5px solid var(--grisClaro);
     font-size: 1.8rem;

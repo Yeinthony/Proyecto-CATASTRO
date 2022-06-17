@@ -1,0 +1,37 @@
+{{> NavbarMaster item = this}}
+
+<div class="register container-login-register">
+    <div class="form-register form-login-register">
+        <form action="/homeMaster/registerAdmin" method="post">
+            <h3 class="title-login-register">CREAR CUENTA</h3>
+            <input type="hidden" name="_csrf" value="{{csrfToken}}">
+            <input type="text" name="userName" class="inputs-login-register" placeholder="Nombre completo">
+            <div class="cedula">
+                <select name="tipoci" class="tipo-ci">
+                    <option value="V- ">V- </option>
+                    <option value="E- ">E- </option>
+                    <option value="J- ">J- </option>
+                </select>
+                <input type="text" name="cedula" class="input-ci inputs-login-register" placeholder="CI">
+            </div>
+            <input type="text" name="email" class="inputs-login-register" placeholder="Email">
+            <div class="rol">
+                <label for="rol">Rol del usuario: </label>
+                <select name="rol" class="tipo-rol">
+                    <option value="1">Director</option>
+                    <option value="2">Analisis y registro</option>
+                    <option value="3">Avalo y mesura</option>
+                    <option value="4">Secretaria</option>
+                </select>
+            </div>
+            <input type="password" name="password" class="inputs-login-register" placeholder="Contraseña">
+            <input type="password" name="repassword" class="inputs-login-register" placeholder="Confirmar contraseña">
+            <div class="container-alertas">
+                {{#each mensajes }} 
+                    <div class="alertas">{{this.msg}}</div> 
+                {{/each}}
+            </div>
+            <button class="btn-login-register" type="submit">Crear cuenta</button> 
+        </form>
+    </div>
+</div>

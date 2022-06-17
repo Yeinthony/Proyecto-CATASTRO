@@ -1,6 +1,6 @@
 const express = require('express');
 const { body } = require("express-validator");
-const { loginForm, registerForm, registerUser, confirmarCuenta, loginUser, cerrarSesion } = require('../controllers/authController');
+const { loginForm, registerForm, registerUser,  confirmarCuenta, loginUser, cerrarSesion } = require('../controllers/authController');
 const router = express.Router();
 
 router.get("/register", registerForm);
@@ -36,6 +36,6 @@ router.post("/login", [
         .isLength({min: 6})
         .escape(),
 ], loginUser);
-router.get("/logout", cerrarSesion)
+router.get("/logout", cerrarSesion);
 
 module.exports = router;

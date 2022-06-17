@@ -29,7 +29,7 @@ const registerUser = async(req, res) => {
         let user = await User.findOne({email});
         if(user) throw new Error("Ya existe el usuario");
 
-        user = new User({userName, cedula: cedulaCompleta, email, password, tokenConfirm: nanoid()});
+        user = new User({userName, cedula: cedulaCompleta, email, rol: 5, password, tokenConfirm: nanoid()});
         await user.save(); 
 
         //enviar correo electronico con la confirmacionde la cuenta
@@ -42,7 +42,7 @@ const registerUser = async(req, res) => {
             }
           });
 
-          await transport.sendMail({
+        await transport.sendMail({
             from: '"Fred Foo 👻" <foo@example.com>',
             to: user.email,
             subject: "verifique cuenta de correo",
@@ -51,11 +51,12 @@ const registerUser = async(req, res) => {
 
         req.flash("mensajes", [{msg: "Revisa tu correo electronico y valida la cuenta"}]);
         return res.redirect("/auth/login");  
+        
         // res.json(user);
         
     } catch (error) {
         req.flash("mensajes", [{msg: error.message}]);
-        return res.redirect("/auth/register");
+        return res.redirect("/auth/register"); 
     }
 };
 
@@ -101,11 +102,22 @@ const loginUser = async(req, res) => {
 
         if(!(await user.comparePassword(password))) throw new Error("Contraseña incorrecta");
 
-        //Esta creando la sesion de ususario a tarvés de passport
-        req.login(user, function(err){
-            if(err) throw new Error("Error al crear la sesión");
-            res.redirect("/");
-        });
+        if(user.rol === "0"){
+            //Esta creando la sesion de ususario a tarvés de passport
+            req.login(user, function(err){
+                if(err) throw new Error("Error al crear la sesión");
+                res.redirect("/homeMaster");
+            });
+        } 
+
+        if(user.rol === "5"){
+            //Esta creando la sesion de ususario a tarvés de passport
+            req.login(user, function(err){
+                if(err) throw new Error("Error al crear la sesión");
+                res.redirect("/");
+            });
+        } 
+
 
     } catch (error) { 
         req.flash("mensajes", [{msg: error.message}]);

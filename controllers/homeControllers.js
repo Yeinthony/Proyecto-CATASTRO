@@ -2,6 +2,12 @@ const User = require("../models/User");
 const Url = require("../models/Url");
 const Citas = require("../models/Citas");
 const {nanoid} = require("nanoid");
+const { validationResult } = require("express-validator");
+const nodemailer = require("nodemailer");
+
+const registerAdminForm = (req, res) => {
+    res.render("registerAdmin"); 
+}
 
 const leerUser = async(req, res) => {
     try {
@@ -169,7 +175,57 @@ const agendarCita = async(req, res) => {
 
 }; 
 
+/*-------------------------RGISTRAR ADMINISTRADORES-------------------------*/
+const registerUserAdmin = async(req, res) => {
+    
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        req.flash("mensajes", errors.array());
+        return res.redirect("/homeMaster/registerAdmin");
+    }
+
+    const cedulaCompleta = req.body.tipoci + req.body.cedula;  
+
+    const { userName, email, rol, password } = req.body;
+
+    try {
+
+        let user = await User.findOne({email});
+        if(user) throw new Error("Ya existe el usuario");
+
+        user = new User({userName, cedula: cedulaCompleta, email, rol, password, tokenConfirm: nanoid()});
+        await user.save(); 
+
+        //enviar correo electronico con la confirmacionde la cuenta
+        const transport = nodemailer.createTransport({
+            host: "smtp.mailtrap.io",
+            port: 2525,
+            auth: {
+              user: process.env.userEmail,
+              pass: process.env.passEmail
+            }
+          });
+
+        await transport.sendMail({
+            from: '"Fred Foo 👻" <foo@example.com>',
+            to: user.email,
+            subject: "verifique cuenta de correo",
+            html: `<a href="http://localhost:5000/auth/confirmar/${user.tokenConfirm}">verificar cuenta aquí</a>`,
+        });
+
+        req.flash("mensajes", [{msg: "Revisa el correo electronico de "+userName + " y valida la cuenta"}]);
+        return res.redirect("/homeMaster/registerAdmin");  
+        
+        // res.json(user);
+        
+    } catch (error) {
+        req.flash("mensajes", [{msg: error.message}]);
+        return res.redirect("/homeMaster/registerAdmin"); 
+    }
+};
+
 module.exports = {
+    registerAdminForm,
     leerUrls,
     agregarUrls,
     eliminarUrl,
@@ -178,4 +234,5 @@ module.exports = {
     redireccionamiento,
     leerUser,
     agendarCita,
+    registerUserAdmin,
 };
