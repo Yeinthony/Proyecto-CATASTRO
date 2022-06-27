@@ -636,6 +636,50 @@ section{
     transition: all .2s ease;
 }
 
+/*-----------------------LISTAS O TABLAS----------------------*/
+
+.container-table{
+    padding-top: 13rem;
+}
+
+.tabla{
+    background-color: var(--gris);
+    color: var(--grisClaro);
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+    font-size: 1.8rem;
+}
+
+.tabla th, .tabla td{
+    padding: 1.2rem;
+}
+
+.tabla th{
+    font-weight: 400;
+}
+
+.head-tabla{
+    /* color: var(--blanco); */
+    border-bottom: solid 3px var(--grisMedio);
+}
+
+.tabla tr:hover td{
+    background-color: var(--grisMedio);
+    /* color: var(--azulClaro); */
+}
+
+.opciones-tabla a{
+    margin: 1rem;
+    font-size: 2.3rem;
+    text-decoration: none;
+    color: var(--blanco);
+}
+
+.opciones-tabla a:hover{
+    color: var(--azulClaro);
+}
+
 @media(max-width:1200px){
     html{
         font-size: 55%;

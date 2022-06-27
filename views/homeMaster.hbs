@@ -1,1 +1,23 @@
 {{> NavbarMaster item = this}}
+
+
+<div class="container-table">
+    <table class="tabla">
+    <thead class="head-tabla">
+        <tr class="container-titles-tabla">
+            <th class="titles-tabla" scope="col">#</th>
+            <th class="titles-tabla" scope="col">ID</th>
+            <th class="titles-tabla" scope="col">Nombre</th>
+            <th class="titles-tabla" scope="col">Cedula</th>
+            <th class="titles-tabla" scope="col">Email</th>
+            <th class="titles-tabla" scope="col">Rol</th>
+            <th class="titles-tabla" scope="col">Opciones</th>
+        </tr>
+    </thead>
+    <tbody class="body-tabla">    
+        {{#each admins }}
+            {{> ListaAdmins }}
+        {{/each}}
+    </tbody>
+    </table>
+</div>    

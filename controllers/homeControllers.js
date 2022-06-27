@@ -5,9 +5,7 @@ const {nanoid} = require("nanoid");
 const { validationResult } = require("express-validator");
 const nodemailer = require("nodemailer");
 
-const registerAdminForm = (req, res) => {
-    res.render("registerAdmin"); 
-}
+/* ------------ CIUDADANO ---------- */
 
 const leerUser = async(req, res) => {
     try {
@@ -27,8 +25,6 @@ const leerUser = async(req, res) => {
 }
 
 const leerUrls = async(req, res) => {
-
-    // console.log(req.user);
     
     try {
 
@@ -129,19 +125,7 @@ const editarUrl = async(req, res) => {
 
 }; 
 
-const redireccionamiento = async(req, res) => {
-    const {shortURL} = req.params;
-    try {
-        const urlDB = await Url.findOne({shortURL: shortURL});
-        res.redirect(urlDB.origin);
-        
-    } catch (error) {
-        req.flash("mensajes", [{msg: "No exise esta url confirmada"}]);
-        return res.redirect("/auth/login");
-    }
-};
-
-/* --------------------CITAS---------------------- */
+/* CITAS */
 
 const agendarCita = async(req, res) => {
 
@@ -175,7 +159,49 @@ const agendarCita = async(req, res) => {
 
 }; 
 
-/*-------------------------RGISTRAR ADMINISTRADORES-------------------------*/
+/* ---------------------- ADMINISTRADORES ------------------ */
+
+const homeMasterTable = (req, res) => {
+    console.log("Hola");
+    res.render("homeMaster"); 
+}
+
+const registerAdminForm = (req, res) => {
+    res.render("registerAdmin"); 
+}
+
+
+/* LEER USUARIOS ADMINISTRATIVOS */
+const leerUserAdmins = async(req, res) => {
+
+    console.log("Hola");
+    
+    try {
+
+        const adminUsers = await User.find({rol: {$ne:"5"}}).lean(); 
+        console.log(adminUsers);
+        res.render("homeMaster", {adminUsers});
+        
+    } catch (error) {
+        req.flash("mensajes", [{msg: error.message}]);
+        return res.redirect("/homeMaster");
+    }
+
+};
+
+const redireccionamiento = async(req, res) => {
+    const {shortURL} = req.params;
+    try {
+        const urlDB = await Url.findOne({shortURL: shortURL});
+        res.redirect(urlDB.origin);
+        
+    } catch (error) {
+        req.flash("mensajes", [{msg: "No exise esta url confirmada"}]);
+        return res.redirect("/auth/login");
+    }
+};
+
+/*RGISTRAR ADMINISTRADORES*/
 const registerUserAdmin = async(req, res) => {
     
     const errors = validationResult(req);
@@ -224,6 +250,7 @@ const registerUserAdmin = async(req, res) => {
     }
 };
 
+
 module.exports = {
     registerAdminForm,
     leerUrls,
@@ -235,4 +262,6 @@ module.exports = {
     leerUser,
     agendarCita,
     registerUserAdmin,
+    homeMasterTable,
+    leerUserAdmins,
 };

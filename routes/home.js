@@ -1,6 +1,6 @@
 const express = require('express');
 const { body } = require("express-validator");
-const { registerAdminForm, leerUser, leerUrls, agregarUrls, eliminarUrl, editarUrlForm, editarUrl, agendarCita, redireccionamiento, registerUserAdmin, } = require('../controllers/homeControllers');
+const { registerAdminForm, leerUser, leerUrls, agregarUrls, eliminarUrl, editarUrlForm, editarUrl, agendarCita, redireccionamiento, registerUserAdmin, homeMasterTable, leerUserAdmins, } = require('../controllers/homeControllers');
 const { formPerfil, editarFotoPerfil } = require('../controllers/perfilController');
 const urlValidar = require('../middlewares/urlValida');
 const verificarUser = require('../middlewares/verificarUser');
@@ -17,6 +17,9 @@ router.get("/perfil", verificarUser, formPerfil);
 router.post("/perfil", verificarUser, editarFotoPerfil);
 
 router.post("/citas", verificarUser, agendarCita);
+
+// router.get("/homeMaster", homeMasterTable);
+// router.get("/homeMaster", verificarUser, leerUserAdmins);
 
 router.get("/homeMaster/registerAdmin", registerAdminForm);
 router.post("/homeMaster/registerAdmin", [
