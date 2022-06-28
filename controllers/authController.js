@@ -103,9 +103,11 @@ const loginUser = async(req, res) => {
         if(!(await user.comparePassword(password))) throw new Error("Contraseña incorrecta");
 
         if(user.rol === "0"){
+
             //Esta creando la sesion de ususario a tarvés de passport
-            req.login(user, function(err){
+            req.login(user, function (err){
                 if(err) throw new Error("Error al crear la sesión");
+            
                 res.redirect("/homeMaster");
             });
         } 

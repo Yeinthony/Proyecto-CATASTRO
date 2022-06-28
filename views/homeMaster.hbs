@@ -5,7 +5,6 @@
     <table class="tabla">
     <thead class="head-tabla">
         <tr class="container-titles-tabla">
-            <th class="titles-tabla" scope="col">#</th>
             <th class="titles-tabla" scope="col">ID</th>
             <th class="titles-tabla" scope="col">Nombre</th>
             <th class="titles-tabla" scope="col">Cedula</th>
@@ -14,10 +13,34 @@
             <th class="titles-tabla" scope="col">Opciones</th>
         </tr>
     </thead>
-    <tbody class="body-tabla">    
-        {{#each admins }}
-            {{> ListaAdmins }}
-        {{/each}}
+    <tbody class="body-tabla">   
+        {{#if admins}}
+            {{#each admins }}
+                <tr>
+                    <td>{admins._id}</td>
+                    <td>{admins.userName}</td>
+                    <td>{admins.cedula}</td>
+                    <td>{admins.email}</td>
+                    <td>{admins.rol}</td>
+                    <td class="opciones-tabla">
+                        <a href="http://"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="http://"><i class="fa-solid fa-trash-can"></i></i></a>
+                    </td>
+                </tr>
+            {{/each}}
+            {{else}}
+                <tr>
+                    <td>No Cargo</td>
+                    <td>No Cargo</td>
+                    <td>No Cargo</td>
+                    <td>No Cargo</td>
+                    <td>No Cargo</td>
+                    <td class="opciones-tabla">
+                        <a href="http://"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a href="http://"><i class="fa-solid fa-trash-can"></i></i></a>
+                    </td>
+                </tr>
+        {{/if}} 
     </tbody>
     </table>
 </div>    

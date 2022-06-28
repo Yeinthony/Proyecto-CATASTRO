@@ -178,7 +178,7 @@ const leerUserAdmins = async(req, res) => {
     
     try {
 
-        const adminUsers = await User.find({rol: {$ne:"5"}}).lean(); 
+        const adminUsers = await User.find({rol: {$ne:"5"}}).lean(); //{and: [rol: {$lte: "5"}, rol: {$gte: "1"}]}
         console.log(adminUsers);
         res.render("homeMaster", {adminUsers});
         

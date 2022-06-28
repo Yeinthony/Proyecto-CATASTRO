@@ -1,12 +1,27 @@
-<tr>
-    <td>1</td>
-    <td>Mark</td>
-    <td>Otto</td>
-    <td>@mdo</td>
-    <td>Otto</td>
-    <td>@mdo</td>
-    <td class="opciones-tabla">
-        <a href="http://"><i class="fa-solid fa-pen-to-square"></i></a>
-        <a href="http://"><i class="fa-solid fa-trash-can"></i></i></a>
-    </td>
-</tr>
+{{#if user}}
+    <tr>
+        <td>1</td>
+        <td>{admins._id}</td>
+        <td>{admins.userName}</td>
+        <td>{admins.cedula}</td>
+        <td>{admins.email}</td>
+        <td>{admins.rol}</td>
+        <td class="opciones-tabla">
+            <a href="http://"><i class="fa-solid fa-pen-to-square"></i></a>
+            <a href="http://"><i class="fa-solid fa-trash-can"></i></i></a>
+        </td>
+    </tr>
+    {else}}
+        <tr>
+            <td>1</td>
+            <td>No Cargo</td>
+            <td>No Cargo</td>
+            <td>No Cargo</td>
+            <td>No Cargo</td>
+            <td>No Cargo</td>
+            <td class="opciones-tabla">
+                <a href="http://"><i class="fa-solid fa-pen-to-square"></i></a>
+                <a href="http://"><i class="fa-solid fa-trash-can"></i></i></a>
+            </td>
+        </tr>
+{{/if}}

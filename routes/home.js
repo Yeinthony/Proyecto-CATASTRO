@@ -19,7 +19,7 @@ router.post("/perfil", verificarUser, editarFotoPerfil);
 router.post("/citas", verificarUser, agendarCita);
 
 // router.get("/homeMaster", homeMasterTable);
-// router.get("/homeMaster", verificarUser, leerUserAdmins);
+router.get("/homeMaster", verificarUser, leerUserAdmins);
 
 router.get("/homeMaster/registerAdmin", registerAdminForm);
 router.post("/homeMaster/registerAdmin", [
