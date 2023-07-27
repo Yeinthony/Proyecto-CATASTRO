@@ -1,6 +1,6 @@
 ## Descripción 🏝
 
-Sistema para emitir certificados de empadronamiento en la alcaldía de Zamora. En desarrollo
+Sistema para emitir certificados de empadronamiento en la alcaldía de Zamora. 80% terminado.
 
 ## Autor ✒️
 **Yeinthony Adrian Vargas Herrera**
